@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('produtos', function (Blueprint $table) {
@@ -21,18 +18,16 @@ return new class extends Migration
             $table->string('material', 100);
             $table->string('compatibilidade', 255);
             $table->decimal('preco', 10, 2);
-            $table->integer('quantidade_atual');
-            $table->integer('estoque_minimo');
+            $table->integer('quantidade_atual')->default(0);
+            $table->integer('estoque_minimo')->default(0);
             $table->boolean('garantia_estendida')->default(false);
             $table->text('descricao')->nullable();
             $table->boolean('status')->default(true);
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('produtos');

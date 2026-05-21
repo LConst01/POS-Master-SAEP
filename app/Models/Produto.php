@@ -3,10 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Movimento;
 class Produto extends Model
 {
     protected $fillable = [
         'nome', 'categoria', 'marca', 'codigo_barras', 'cor', 'material', 'compatibilidade', 'preco', 'quantidade_atual', 'estoque_minimo', 'garantia_estendida', 'descricao', 'status'
     ];
+
+    public function movimeto(){
+        return $this->hasMany(Movimento::class);
+    }
+
+
 }

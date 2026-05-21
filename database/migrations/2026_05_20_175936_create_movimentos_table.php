@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('movimentos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('produto_id')->contrained()->cascadeOnDelete();
+            $table->enum('tipo_movimentacao', ['entrada', 'saida']);
+            $table->integer('quantidade');
+            $table->dateTime('data_movimentacao');
+            $table->text('observacao')->nullable();
             $table->timestamps();
         });
     }
