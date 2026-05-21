@@ -65,6 +65,8 @@ class ProdutoResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('nome', 'asc')
+            
             ->columns([
                 Tables\Columns\TextColumn::make('nome')
                     ->searchable(),

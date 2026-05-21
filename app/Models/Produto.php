@@ -10,9 +10,9 @@ class Produto extends Model
         'nome', 'categoria', 'marca', 'codigo_barras', 'cor', 'material', 'compatibilidade', 'preco', 'quantidade_atual', 'estoque_minimo', 'garantia_estendida', 'descricao', 'status'
     ];
 
-    public function movimeto(){
+    public function movimetos(){
         return $this->hasMany(Movimento::class);
     }
 
-
+    
 }

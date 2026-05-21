@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Produto;
+use Filament\Notifications\Notification;
 
 class Movimento extends Model
 {
@@ -11,7 +12,10 @@ class Movimento extends Model
         'produto_id', 'tipo_movimentacao', 'quantidade', 'data_movimentacao', 'observacao'
     ];
 
-    public function produto(){
+    public function produto()
+    {
         return $this->belongsTo(Produto::class, 'produto_id');
     }
+    
+    
 }
