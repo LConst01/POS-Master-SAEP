@@ -16,6 +16,6 @@ class Movimento extends Model
     {
         return $this->belongsTo(Produto::class, 'produto_id');
     }
-    
+
     
 }
