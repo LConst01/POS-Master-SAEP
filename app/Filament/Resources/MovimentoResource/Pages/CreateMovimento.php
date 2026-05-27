@@ -18,7 +18,7 @@ class CreateMovimento extends CreateRecord
         $data=$this->data;
         $produto = Produto::find($data['produto_id']);
         $quantidade = (int)$data['quantidade'];
-        $tipo = $data['tipo'];
+        $tipo = $data['tipo_movimentacao'];
 
         if (!$produto) {
             Notification::make()
@@ -29,26 +29,25 @@ class CreateMovimento extends CreateRecord
 
             $this->halt();
         }
-        if ($tipo === 'saida' && $quantidade > $produto->estoque){
+        if ($tipo === 'saida' && $quantidade > $produto->quantidade_atual){
             Notification::make()
                 ->title('Estoque insuficiente')
-                ->body("Estoque de '{$produto->nome}' é de apenas {$produto->estoque} unidades")
+                ->body("Estoque de '{$produto->nome}' é de apenas {$produto->quantidade_atual} unidades")
                 ->danger()
                 ->send();
-
             $this->halt();
         }
     }
 
     protected function afterCreate(): void
     {
-        $movimento = $this->afterCreate();
+        $movimento = $this->getRecord();
         $produto = $movimento->produto;
 
         if ($movimento->tipo === 'entrada'){
-            $produto->increment('estoque', $movimento->quantidade);
+            $produto->increment('quantidade_atual', $movimento->quantidade);
         } else {
-            $produto->decrement('estoque', $movimento->quantidade);
+            $produto->decrement('quantidade_atual', $movimento->quantidade);
         }
     }
 }

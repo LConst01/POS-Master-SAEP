@@ -49,10 +49,12 @@ class ProdutoResource extends Resource
                     ->numeric(),
                 Forms\Components\TextInput::make('quantidade_atual')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->default(0),
                 Forms\Components\TextInput::make('estoque_minimo')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->default(0),
                 Forms\Components\Toggle::make('garantia_estendida')
                     ->required(),
                 Forms\Components\Textarea::make('descricao')
@@ -65,8 +67,6 @@ class ProdutoResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('nome', 'asc')
-            
             ->columns([
                 Tables\Columns\TextColumn::make('nome')
                     ->searchable(),
@@ -87,7 +87,19 @@ class ProdutoResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('quantidade_atual')
                     ->numeric()
-                    ->sortable(),
+                    ->sortable()
+                    ->label('Quantidade')
+                    ->badge()
+                    -color(function ($record) {
+                        if ($record->quantidade_atual == 0){
+                            return 'danger';
+                        }
+                        if ($record->quantidade_atual < $record->estoque_minimo) {
+                            return 'warning';
+                        }
+
+                        return 'success' 
+                    }),
                 Tables\Columns\TextColumn::make('estoque_minimo')
                     ->numeric()
                     ->sortable(),
