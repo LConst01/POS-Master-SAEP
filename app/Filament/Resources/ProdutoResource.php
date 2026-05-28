@@ -88,9 +88,9 @@ class ProdutoResource extends Resource
                 Tables\Columns\TextColumn::make('quantidade_atual')
                     ->numeric()
                     ->sortable()
-                    ->label('Quantidade')
+                    ->label('quantidade_atual')
                     ->badge()
-                    -color(function ($record) {
+                    ->color(function ($record) {
                         if ($record->quantidade_atual == 0){
                             return 'danger';
                         }
@@ -98,7 +98,7 @@ class ProdutoResource extends Resource
                             return 'warning';
                         }
 
-                        return 'success' 
+                        return 'success';
                     }),
                 Tables\Columns\TextColumn::make('estoque_minimo')
                     ->numeric()

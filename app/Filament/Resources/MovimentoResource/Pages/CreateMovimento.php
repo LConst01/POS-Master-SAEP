@@ -44,7 +44,7 @@ class CreateMovimento extends CreateRecord
         $movimento = $this->getRecord();
         $produto = $movimento->produto;
 
-        if ($movimento->tipo === 'entrada'){
+        if ($movimento->tipo_movimentacao === 'entrada'){
             $produto->increment('quantidade_atual', $movimento->quantidade);
         } else {
             $produto->decrement('quantidade_atual', $movimento->quantidade);
